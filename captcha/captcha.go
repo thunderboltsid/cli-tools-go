@@ -6,13 +6,17 @@ import (
 	"strings"
 	"github.com/sirupsen/logrus"
 	"fmt"
+	"github.com/thunderboltsid/cli-tools-go/captcha/alphabet"
 )
 
 const (
 	defaultCaptchaLength = 6
 )
 
-var defaultPrintFunc = logrus.Infof
+var (
+	defaultPrintFunc = logrus.Infof
+	defaultAlphabet  = alphabet.HollowBlockAlphabet()
+)
 
 type Captcha interface {
 	ConfirmPhrase(reader io.Reader) error
@@ -29,6 +33,9 @@ func New(opts ...func(*captchaImpl)) Captcha {
 	if c.print == nil {
 		c.print = defaultPrintFunc
 	}
+	if c.alphabet == nil {
+		c.alphabet = defaultAlphabet
+	}
 	return &c
 }
 
@@ -41,6 +48,8 @@ type captchaImpl struct {
 	errorMsg string
 	// print is the function used for formatted printing
 	print func(format string, a ...interface{})
+	// alphabet is the alphabet representation set used for rendering the captcha
+	alphabet alphabet.Alphabet
 }
 
 // Length sets the length of the captcha phrase
@@ -68,6 +77,13 @@ func ErrorMessage(msg string) func(captcha *captchaImpl) {
 func PrintFunc(print func(string, ...interface{})) func(captcha *captchaImpl) {
 	return func(captcha *captchaImpl) {
 		captcha.print = print
+	}
+}
+
+// PrintFunc sets the print function on the captcha
+func WithAlphabet(a alphabet.Alphabet) func(captcha *captchaImpl) {
+	return func(captcha *captchaImpl) {
+		captcha.alphabet = a
 	}
 }
 

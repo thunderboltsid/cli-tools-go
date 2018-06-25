@@ -16,12 +16,10 @@ func (alphabet *alphabetImpl) RenderMap() map[string]string {
 	return alphabet.characterMap
 }
 
-func HollowBlockAlphabet() (Alphabet, error) {
+func HollowBlockAlphabet() Alphabet {
 	alphabet := alphabetImpl{
-		characterMap:make(map[string]string),
+		characterMap: make(map[string]string),
 	}
-	if err := json.Unmarshal([]byte(hollowBlockCharacterMap), alphabet.characterMap); err != nil {
-		return nil, err
-	}
-	return &alphabet, nil
+	json.Unmarshal([]byte(hollowBlockCharacterMap), &alphabet.characterMap)
+	return &alphabet
 }
