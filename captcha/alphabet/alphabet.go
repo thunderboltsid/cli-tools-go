@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 )
 
-const defaultAlphabetSet = hollowBlockAlphabet
-
 type Alphabet interface {
 	RenderMap() map[string][]string
 }
