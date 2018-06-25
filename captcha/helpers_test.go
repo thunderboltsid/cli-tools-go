@@ -1,8 +1,8 @@
 package captcha
 
 import (
-	"testing"
 	"github.com/stretchr/testify/require"
+	"testing"
 )
 
 func Test_randomString_has_correct_length(t *testing.T) {

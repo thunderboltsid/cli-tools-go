@@ -1,13 +1,14 @@
 package captcha
 
 import (
-	"testing"
-	"github.com/stretchr/testify/require"
-	"github.com/stretchr/testify/assert"
-	"reflect"
 	"log"
-	"github.com/thunderboltsid/cli-tools-go/captcha/alphabet"
 	"os"
+	"reflect"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"github.com/thunderboltsid/cli-tools-go/captcha/alphabet"
 )
 
 func Test__New_creates_new_captcha(t *testing.T) {
@@ -38,7 +39,9 @@ func Test__New_creates_captcha_with_default_alphabet(t *testing.T) {
 	ci, ok := c.(*captchaImpl)
 	require.True(t, ok)
 	assert.NotNil(t, ci.alphabet)
-	assert.Equal(t, alphabet.HollowBlockAlphabet(), ci.alphabet)
+	alphabet, err := alphabet.New()
+	require.NoError(t, err)
+	assert.Equal(t, alphabet, ci.alphabet)
 }
 
 func Test__New_creates_captcha_with_default_reader(t *testing.T) {

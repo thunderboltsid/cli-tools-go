@@ -1,13 +1,12 @@
 package captcha
 
 import (
-	"io"
 	"bufio"
-	"strings"
-	"github.com/sirupsen/logrus"
 	"fmt"
 	"github.com/thunderboltsid/cli-tools-go/captcha/alphabet"
+	"io"
 	"os"
+	"strings"
 )
 
 const (
@@ -15,7 +14,7 @@ const (
 )
 
 var (
-	defaultPrintFunc = logrus.Infof
+	defaultPrintFunc = println
 	defaultAlphabet  = alphabet.HollowBlockAlphabet()
 )
 
@@ -25,10 +24,12 @@ type Captcha interface {
 
 func defaultCaptcha() *captchaImpl {
 	return &captchaImpl{
-		phrase:   randomString(defaultCaptchaLength),
-		print:    defaultPrintFunc,
-		alphabet: defaultAlphabet,
-		reader:   os.Stdin,
+		phrase:    randomString(defaultCaptchaLength),
+		print:     defaultPrintFunc,
+		alphabet:  defaultAlphabet,
+		reader:    os.Stdin,
+		promptMsg: "Enter the text above!",
+		errorMsg:  "Wrong value for the given text.",
 	}
 }
 
@@ -83,7 +84,7 @@ func WithPrintFunc(print func(string, ...interface{})) func(captcha *captchaImpl
 	}
 }
 
-// WithPrintFunc sets the print function on the captcha
+// WithAlphabet sets the alphabet used for rendering the captcha
 func WithAlphabet(alphabet alphabet.Alphabet) func(captcha *captchaImpl) {
 	return func(captcha *captchaImpl) {
 		captcha.alphabet = alphabet
@@ -99,6 +100,7 @@ func WithReader(reader io.Reader) func(captcha *captchaImpl) {
 
 // ConfirmPhrase prints the prompt message and takes input from reader
 func (captcha *captchaImpl) ConfirmPhrase() error {
+	renderString(captcha.phrase, captcha.alphabet, captcha.print)
 	captcha.print(captcha.promptMsg)
 	bufferedReader := bufio.NewReader(captcha.reader)
 	response, err := bufferedReader.ReadString('\n')
