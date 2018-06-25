@@ -3,6 +3,8 @@ package captcha
 import (
 	"math/rand"
 	"time"
+	"github.com/thunderboltsid/cli-tools-go/captcha/alphabet"
+	"fmt"
 )
 
 // letterBytes represents the characters to be used (several omitted for readability) while building a random string for captcha
@@ -29,4 +31,22 @@ func randomString(length int) string {
 		remain--
 	}
 	return string(b)
+}
+
+func renderCaptcha(str string, alphabet alphabet.Alphabet) []string {
+	var out []string
+	for i := 0; i < len(str); i++ {
+		char := alphabet.RenderMap()[str[i:i+1]]
+		if out == nil {
+			out = make([]string, len(char))
+		}
+		for k, v := range char {
+			if out[k] == "" {
+				out[k] = v
+			} else {
+				out[k] = fmt.Sprintf("%s.%s", out[k], v)
+			}
+		}
+	}
+	return out
 }

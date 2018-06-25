@@ -84,9 +84,9 @@ func WithPrintFunc(print func(string, ...interface{})) func(captcha *captchaImpl
 }
 
 // WithPrintFunc sets the print function on the captcha
-func WithAlphabet(a alphabet.Alphabet) func(captcha *captchaImpl) {
+func WithAlphabet(alphabet alphabet.Alphabet) func(captcha *captchaImpl) {
 	return func(captcha *captchaImpl) {
-		captcha.alphabet = a
+		captcha.alphabet = alphabet
 	}
 }
 
