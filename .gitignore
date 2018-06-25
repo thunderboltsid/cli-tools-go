@@ -16,3 +16,4 @@
 
 # Build output
 vendor/
+_vendor-*/
