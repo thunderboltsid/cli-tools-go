@@ -15,30 +15,36 @@ const (
 
 var (
 	defaultPrintFunc = println
-	defaultAlphabet  = alphabet.HollowBlockAlphabet()
 )
 
 type Captcha interface {
 	ConfirmPhrase() error
 }
 
-func defaultCaptcha() *captchaImpl {
+func defaultCaptcha() (*captchaImpl, error) {
+	alphabet, err := alphabet.New()
+	if err != nil {
+		return nil, err
+	}
 	return &captchaImpl{
 		phrase:    randomString(defaultCaptchaLength),
 		print:     defaultPrintFunc,
-		alphabet:  defaultAlphabet,
+		alphabet:  alphabet,
 		reader:    os.Stdin,
 		promptMsg: "Enter the text above!",
 		errorMsg:  "Wrong value for the given text.",
-	}
+	}, nil
 }
 
-func New(opts ...func(*captchaImpl)) Captcha {
-	c := defaultCaptcha()
+func New(opts ...func(*captchaImpl)) (Captcha, error) {
+	c, err := defaultCaptcha()
+	if err != nil {
+		fmt.Errorf("unable to create captcha: %s", err.Error())
+	}
 	for _, option := range opts {
 		option(c)
 	}
-	return c
+	return c, nil
 }
 
 type captchaImpl struct {

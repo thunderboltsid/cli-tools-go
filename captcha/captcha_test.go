@@ -12,12 +12,14 @@ import (
 )
 
 func Test__New_creates_new_captcha(t *testing.T) {
-	c := New()
+	c, err := New()
+	require.NoError(t, err)
 	require.NotNil(t, c)
 }
 
 func Test__New_creates_captcha_with_default_length(t *testing.T) {
-	c := New()
+	c, err := New()
+	require.NoError(t, err)
 	require.NotNil(t, c)
 	ci, ok := c.(*captchaImpl)
 	require.True(t, ok)
@@ -25,7 +27,8 @@ func Test__New_creates_captcha_with_default_length(t *testing.T) {
 }
 
 func Test__New_creates_captcha_with_default_print_function(t *testing.T) {
-	c := New()
+	c, err := New()
+	require.NoError(t, err)
 	require.NotNil(t, c)
 	ci, ok := c.(*captchaImpl)
 	require.True(t, ok)
@@ -34,7 +37,8 @@ func Test__New_creates_captcha_with_default_print_function(t *testing.T) {
 }
 
 func Test__New_creates_captcha_with_default_alphabet(t *testing.T) {
-	c := New()
+	c, err := New()
+	require.NoError(t, err)
 	require.NotNil(t, c)
 	ci, ok := c.(*captchaImpl)
 	require.True(t, ok)
@@ -45,7 +49,8 @@ func Test__New_creates_captcha_with_default_alphabet(t *testing.T) {
 }
 
 func Test__New_creates_captcha_with_default_reader(t *testing.T) {
-	c := New()
+	c, err := New()
+	require.NoError(t, err)
 	require.NotNil(t, c)
 	ci, ok := c.(*captchaImpl)
 	require.True(t, ok)
@@ -54,7 +59,8 @@ func Test__New_creates_captcha_with_default_reader(t *testing.T) {
 }
 
 func Test__New_creates_captcha_with_specified_length(t *testing.T) {
-	c := New(WithLength(10))
+	c, err := New(WithLength(10))
+	require.NoError(t, err)
 	require.NotNil(t, c)
 	ci, ok := c.(*captchaImpl)
 	require.True(t, ok)
@@ -62,7 +68,8 @@ func Test__New_creates_captcha_with_specified_length(t *testing.T) {
 }
 
 func Test__New_creates_captcha_with_specified_prompt_and_error_msg(t *testing.T) {
-	c := New(WithPromptMessage("prompt"), WithErrorMessage("error"))
+	c, err := New(WithPromptMessage("prompt"), WithErrorMessage("error"))
+	require.NoError(t, err)
 	require.NotNil(t, c)
 	ci, ok := c.(*captchaImpl)
 	require.True(t, ok)
@@ -71,7 +78,8 @@ func Test__New_creates_captcha_with_specified_prompt_and_error_msg(t *testing.T)
 }
 
 func Test__New_creates_captcha_with_specified_print_function(t *testing.T) {
-	c := New(WithPrintFunc(log.Fatalf))
+	c, err := New(WithPrintFunc(log.Fatalf))
+	require.NoError(t, err)
 	require.NotNil(t, c)
 	ci, ok := c.(*captchaImpl)
 	require.True(t, ok)

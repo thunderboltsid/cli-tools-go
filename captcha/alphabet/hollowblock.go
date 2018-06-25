@@ -1,10 +1,6 @@
 package alphabet
 
-import (
-	"log"
-)
-
-const hollowBlockAlphabet = `
+const HollowBlockAlphabet = `
 {
 	"1"	: [
 		"  _  ",
@@ -261,11 +257,3 @@ const hollowBlockAlphabet = `
 	]
 }
 `
-
-func HollowBlockAlphabet() Alphabet {
-	alphabet, err := New(WithAlphabet(hollowBlockAlphabet))
-	if err != nil {
-		log.Fatalf("unable to create HollowBlockAlphabet: %v", err)
-	}
-	return alphabet
-}

@@ -22,7 +22,7 @@ func New(opts ...func(impl *alphabetImpl)) (Alphabet, error) {
 
 func defaultAlphabet() *alphabetImpl {
 	return &alphabetImpl{
-		alphabet: []byte(hollowBlockAlphabet),
+		alphabet: []byte(HollowBlockAlphabet),
 	}
 }
 
@@ -34,7 +34,7 @@ func WithAlphabet(alphabet string) func(alphabet *alphabetImpl) {
 }
 
 type alphabetImpl struct {
-	// take a look at hollowBlockAlphabet to understand how alphabet looks like
+	// take a look at HollowBlockAlphabet to understand how alphabet looks like
 	alphabet     []byte
 	characterMap map[string][]string
 }

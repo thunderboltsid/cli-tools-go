@@ -12,5 +12,5 @@ func Test__New_creates_alphabet_with_hollowBlockAlphabet_by_default(t *testing.T
 	require.NotNil(t, alphabet)
 	ai, ok := alphabet.(*alphabetImpl)
 	require.True(t, ok)
-	assert.Equal(t, hollowBlockAlphabet, string(ai.alphabet))
+	assert.Equal(t, HollowBlockAlphabet, string(ai.alphabet))
 }
