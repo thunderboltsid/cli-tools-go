@@ -41,7 +41,7 @@ func Test__New_creates_captcha_with_default_alphabet(t *testing.T) {
 }
 
 func Test__New_creates_captcha_with_specified_length(t *testing.T) {
-	c := New(Length(10))
+	c := New(WithLength(10))
 	require.NotNil(t, c)
 	ci, ok := c.(*captchaImpl)
 	require.True(t, ok)
@@ -49,7 +49,7 @@ func Test__New_creates_captcha_with_specified_length(t *testing.T) {
 }
 
 func Test__New_creates_captcha_with_specified_prompt_and_error_msg(t *testing.T) {
-	c := New(PromptMessage("prompt"), ErrorMessage("error"))
+	c := New(WithPromptMessage("prompt"), WithErrorMessage("error"))
 	require.NotNil(t, c)
 	ci, ok := c.(*captchaImpl)
 	require.True(t, ok)
@@ -58,7 +58,7 @@ func Test__New_creates_captcha_with_specified_prompt_and_error_msg(t *testing.T)
 }
 
 func Test__New_creates_captcha_with_specified_print_function(t *testing.T) {
-	c := New(PrintFunc(log.Fatalf))
+	c := New(WithPrintFunc(log.Fatalf))
 	require.NotNil(t, c)
 	ci, ok := c.(*captchaImpl)
 	require.True(t, ok)

@@ -52,35 +52,35 @@ type captchaImpl struct {
 	alphabet alphabet.Alphabet
 }
 
-// Length sets the length of the captcha phrase
-func Length(length int) func(captcha *captchaImpl) {
+// WithLength sets the length of the captcha phrase
+func WithLength(length int) func(captcha *captchaImpl) {
 	return func(captcha *captchaImpl) {
 		captcha.phrase = randomString(length)
 	}
 }
 
-// PromptMessage sets the message showing prompt asking for confirmation
-func PromptMessage(msg string) func(captcha *captchaImpl) {
+// WithPromptMessage sets the message showing prompt asking for confirmation
+func WithPromptMessage(msg string) func(captcha *captchaImpl) {
 	return func(captcha *captchaImpl) {
 		captcha.promptMsg = msg
 	}
 }
 
-// ErrorMessage sets the message showing error in case of failure to confirm phrase
-func ErrorMessage(msg string) func(captcha *captchaImpl) {
+// WithErrorMessage sets the message showing error in case of failure to confirm phrase
+func WithErrorMessage(msg string) func(captcha *captchaImpl) {
 	return func(captcha *captchaImpl) {
 		captcha.errorMsg = msg
 	}
 }
 
-// PrintFunc sets the print function on the captcha
-func PrintFunc(print func(string, ...interface{})) func(captcha *captchaImpl) {
+// WithPrintFunc sets the print function on the captcha
+func WithPrintFunc(print func(string, ...interface{})) func(captcha *captchaImpl) {
 	return func(captcha *captchaImpl) {
 		captcha.print = print
 	}
 }
 
-// PrintFunc sets the print function on the captcha
+// WithPrintFunc sets the print function on the captcha
 func WithAlphabet(a alphabet.Alphabet) func(captcha *captchaImpl) {
 	return func(captcha *captchaImpl) {
 		captcha.alphabet = a
