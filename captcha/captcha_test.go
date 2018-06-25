@@ -7,6 +7,7 @@ import (
 	"reflect"
 	"log"
 	"github.com/thunderboltsid/cli-tools-go/captcha/alphabet"
+	"os"
 )
 
 func Test__New_creates_new_captcha(t *testing.T) {
@@ -38,6 +39,15 @@ func Test__New_creates_captcha_with_default_alphabet(t *testing.T) {
 	require.True(t, ok)
 	assert.NotNil(t, ci.alphabet)
 	assert.Equal(t, alphabet.HollowBlockAlphabet(), ci.alphabet)
+}
+
+func Test__New_creates_captcha_with_default_reader(t *testing.T) {
+	c := New()
+	require.NotNil(t, c)
+	ci, ok := c.(*captchaImpl)
+	require.True(t, ok)
+	assert.NotNil(t, ci.reader)
+	assert.Equal(t, os.Stdin, ci.reader)
 }
 
 func Test__New_creates_captcha_with_specified_length(t *testing.T) {

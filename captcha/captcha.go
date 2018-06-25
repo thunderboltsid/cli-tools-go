@@ -7,6 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"fmt"
 	"github.com/thunderboltsid/cli-tools-go/captcha/alphabet"
+	"os"
 )
 
 const (
@@ -19,24 +20,24 @@ var (
 )
 
 type Captcha interface {
-	ConfirmPhrase(reader io.Reader) error
+	ConfirmPhrase() error
+}
+
+func defaultCaptcha() *captchaImpl {
+	return &captchaImpl{
+		phrase:   randomString(defaultCaptchaLength),
+		print:    defaultPrintFunc,
+		alphabet: defaultAlphabet,
+		reader:   os.Stdin,
+	}
 }
 
 func New(opts ...func(*captchaImpl)) Captcha {
-	c := captchaImpl{}
+	c := defaultCaptcha()
 	for _, option := range opts {
-		option(&c)
+		option(c)
 	}
-	if c.phrase == "" {
-		c.phrase = randomString(defaultCaptchaLength)
-	}
-	if c.print == nil {
-		c.print = defaultPrintFunc
-	}
-	if c.alphabet == nil {
-		c.alphabet = defaultAlphabet
-	}
-	return &c
+	return c
 }
 
 type captchaImpl struct {
@@ -50,6 +51,8 @@ type captchaImpl struct {
 	print func(format string, a ...interface{})
 	// alphabet is the alphabet representation set used for rendering the captcha
 	alphabet alphabet.Alphabet
+	// reader specifies how the captcha input is read
+	reader io.Reader
 }
 
 // WithLength sets the length of the captcha phrase
@@ -87,10 +90,17 @@ func WithAlphabet(a alphabet.Alphabet) func(captcha *captchaImpl) {
 	}
 }
 
+// WithReader sets the input reader on the captcha
+func WithReader(reader io.Reader) func(captcha *captchaImpl) {
+	return func(captcha *captchaImpl) {
+		captcha.reader = reader
+	}
+}
+
 // ConfirmPhrase prints the prompt message and takes input from reader
-func (captcha *captchaImpl) ConfirmPhrase(reader io.Reader) error {
+func (captcha *captchaImpl) ConfirmPhrase() error {
 	captcha.print(captcha.promptMsg)
-	bufferedReader := bufio.NewReader(reader)
+	bufferedReader := bufio.NewReader(captcha.reader)
 	response, err := bufferedReader.ReadString('\n')
 	if err != nil {
 		return err
