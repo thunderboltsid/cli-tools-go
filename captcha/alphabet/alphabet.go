@@ -26,7 +26,7 @@ func defaultAlphabet() *alphabetImpl {
 	}
 }
 
-// WithLength sets the length of the captcha phrase
+// WithAlphabet specifies the alphabet e.g. HollowBlockAlphabet
 func WithAlphabet(alphabet string) func(alphabet *alphabetImpl) {
 	return func(a *alphabetImpl) {
 		a.alphabet = []byte(alphabet)

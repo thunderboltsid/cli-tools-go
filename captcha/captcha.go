@@ -39,7 +39,7 @@ func defaultCaptcha() (*captchaImpl, error) {
 func New(opts ...func(*captchaImpl)) (Captcha, error) {
 	c, err := defaultCaptcha()
 	if err != nil {
-		fmt.Errorf("unable to create captcha: %s", err.Error())
+		return nil, fmt.Errorf("unable to create captcha: %s", err.Error())
 	}
 	for _, option := range opts {
 		option(c)
