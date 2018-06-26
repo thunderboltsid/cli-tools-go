@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 )
 
+// Alphabet interface defines the contract that a given alphabet needs to fulfil
 type Alphabet interface {
 	RenderMap() map[string][]string
 }
 
+// New is a constructor for Alphabet objects using functional options pattern
 func New(opts ...func(impl *alphabetImpl)) (Alphabet, error) {
 	alphabet := defaultAlphabet()
 	for _, option := range opts {
@@ -39,6 +41,7 @@ type alphabetImpl struct {
 	characterMap map[string][]string
 }
 
+// RenderMap returns the map which defines how a given character corresponds to it's ASCII art equivalent
 func (alphabet *alphabetImpl) RenderMap() map[string][]string {
 	return alphabet.characterMap
 }

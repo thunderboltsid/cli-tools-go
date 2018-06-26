@@ -17,6 +17,7 @@ var (
 	defaultPrintFunc = println
 )
 
+// Captcha interface defines the expected contract of the Captcha package
 type Captcha interface {
 	ConfirmPhrase() error
 }
@@ -36,6 +37,7 @@ func defaultCaptcha() (*captchaImpl, error) {
 	}, nil
 }
 
+// New is a constructor that constructs a Captcha using the functional options pattern
 func New(opts ...func(*captchaImpl)) (Captcha, error) {
 	c, err := defaultCaptcha()
 	if err != nil {

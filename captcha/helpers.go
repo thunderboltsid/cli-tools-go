@@ -15,6 +15,7 @@ const (
 	letterIdxMax  = 63 / letterIdxBits   // # of letter indices fitting in 63 bits
 )
 
+// randomString generates a random string of a given length
 func randomString(length int) string {
 	src := rand.NewSource(time.Now().UnixNano())
 	b := make([]byte, length)
@@ -33,6 +34,8 @@ func randomString(length int) string {
 	return string(b)
 }
 
+// renderString renders a given string into corresponding alphabet representation and prints it using the provided
+// print method
 func renderString(str string, alphabet alphabet.Alphabet, print func(string, ...interface{})) {
 	var out []string
 	for i := 0; i < len(str); i++ {

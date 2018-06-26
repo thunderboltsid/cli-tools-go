@@ -1,5 +1,7 @@
 package alphabet
 
+// HollowBlockAlphabet stores a stringified JSON map of characters to their ASCII-art representation for the HollowBlock
+// ASCII Art font
 const HollowBlockAlphabet = `
 {
 	"1"	: [
