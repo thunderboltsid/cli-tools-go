@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/thunderboltsid/cli-tools-go/captcha/alphabet"
+	"github.com/thunderboltsid/cli-tools-go/figlet/alphabet"
 )
 
 func Test__New_creates_new_captcha(t *testing.T) {

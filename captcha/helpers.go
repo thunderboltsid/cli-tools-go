@@ -2,9 +2,10 @@ package captcha
 
 import (
 	"fmt"
-	"github.com/thunderboltsid/cli-tools-go/captcha/alphabet"
 	"math/rand"
 	"time"
+
+	"github.com/thunderboltsid/cli-tools-go/figlet/alphabet"
 )
 
 // letterBytes represents the characters to be used (several omitted for readability) while building a random string for captcha

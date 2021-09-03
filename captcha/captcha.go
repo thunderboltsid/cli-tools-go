@@ -3,7 +3,7 @@ package captcha
 import (
 	"bufio"
 	"fmt"
-	"github.com/thunderboltsid/cli-tools-go/captcha/alphabet"
+	"github.com/thunderboltsid/cli-tools-go/figlet/alphabet"
 	"io"
 	"os"
 	"strings"
